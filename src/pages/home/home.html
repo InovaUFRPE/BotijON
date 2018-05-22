@@ -1,14 +1,23 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content text-center padding="10px">
+  <ion-img width="350" height="400" style="background: none;" src="assets/imgs/logo2.png"></ion-img>
+  <ion-list>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-item>
+    <ion-label fixed>E-mail</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>Password</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+
+    <button ion-button style="margin-top:20px; margin-bottom: 20px">Acessar</button>
+    <br>
+    Ainda não se cadastrou?
+    <br>
+    <button ion-button style="margin-top:10px" (click) = "goToTabsPage()">Cadastre-se</button>
+    <br>
+
+</ion-list>
 </ion-content>
