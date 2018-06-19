@@ -1,6 +1,13 @@
 <ion-content text-center padding="10px">
   <ion-img width="350" height="400" style="background: none;" src="assets/imgs/logo2.png"></ion-img>
   <ion-list>
+  <ion-item>
+    <ion-label fixed>Tipo</ion-label>
+    <ion-select [(ngModel)]="tipo">
+      <ion-option value="cliente">Cliente</ion-option>
+      <ion-option value="vendedor">Vendedor</ion-option>
+    </ion-select>
+  </ion-item>
 
   <ion-item>
     <ion-label fixed>Nome</ion-label>
@@ -13,9 +20,15 @@
   </ion-item>
 
   <ion-item>
+    <ion-label fixed>CPF/CNPJ</ion-label>
+    <ion-input type="text" value=""></ion-input>
+  </ion-item>
+
+  <ion-item>
     <ion-label fixed>Senha</ion-label>
     <ion-input type="password" value=""></ion-input>
   </ion-item>
+
 
     <button ion-button style="margin-top:20px; margin-bottom: 20px">Cadastre-se</button>
     <br>
