@@ -1,3 +1,50 @@
 page-cadastro {
+    .content {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .text {
+        margin-top: 20%;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+    .content .img {
+        height: 300px;
+        width: 300px;
+        margin-bottom: 5%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        padding-right: 50px;
+        margin-top: 15%;
+    }
+    // .btn{
+    // }
+    .content .btn1{
+        font-weight: bold;
+        width: 40%;
+        height: 20%;
+        margin-left: -5px;
+        margin-right: 25px;
+    }
+    .content .btn2{
+        font-weight: bold;
+        margin-left: 2%;
+        height: 20%;
+        width: 40%;
+    }
+    div > div {
+        display: inline-block;
+    }
 
+    /* ------------------------------
+    MEDIAQUERIES
+    ---------------------------------*/
+    @media (min-width: 414px) and (max-width:736px){ 
+        .img{
+            margin-top: 20% !important
+        }
+    }
 }
