@@ -10,7 +10,7 @@ import { SellersController } from '../../providers/sellers/sellers-controller';
 })
 export class CadastroVendedorPage {
 
-  public sellerData = { "name": "", "email": "", "cpfcnpj": "", "password": "", "address": "" };
+  public sellerData = { "name": "", "email": "", "cpfcnpj": "", "password": "" };
 
   constructor(
     public navCtrl: NavController, 
