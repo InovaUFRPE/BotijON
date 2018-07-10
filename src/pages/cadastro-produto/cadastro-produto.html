@@ -8,23 +8,23 @@
 <ion-list>
   <ion-item>
     <ion-label fixed>Tipo</ion-label>
-    <ion-select [(ngModel)]="tipo">
-      <ion-option value="agua">Aguá</ion-option>
+    <ion-select [(ngModel)]="product.product_type">
+      <ion-option value="agua">Água</ion-option>
       <ion-option value="gas">Gás</ion-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
-    <ion-label fixed>Marca</ion-label>
-    <ion-input type="text" value=""></ion-input>
+    <ion-label fixed>Descrição</ion-label>
+    <ion-input [(ngModel)]="product.description" type="text" value=""></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label fixed>Valor</ion-label>
-    <ion-input type="text" value=""></ion-input>
+    <ion-input [(ngModel)]="product.value" type="tel" value=""></ion-input>
   </ion-item>
 
-    <button ion-button style="margin-top:20px; margin-bottom: 20px">Cadastrar</button>
+    <button ion-button style="margin-top:20px; margin-bottom: 20px" (click)="cadastrarProduto()">Cadastrar</button>
     <br>
     <button ion-button style="margin-top:10px" (click)= "goToHomePage()">Cancelar</button>
     <br>

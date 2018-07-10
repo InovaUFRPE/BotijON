@@ -23,13 +23,15 @@ export class HomePage {
     this.userController.validationSeller(this.userData).then((res: any) => {
      if(res.status == "success"){
        if (!!res.data[0].cpfcnpj) {
-         this.goToMainPageSeller()
+         console.log(res.data[0]);
+         this.goToMainPageSeller(res.data[0])
        }
      }
     else{
        this.userController.validationCustomer(this.userData).then((res: any) => {
          if (res.status == "success") {
-          this.goToMainPageCustomer()
+           console.log(res.data[0]);
+           this.goToMainPageCustomer(res.data[0])
          }
        }).catch(err => {
          alert(err)
@@ -44,11 +46,11 @@ export class HomePage {
       this.navCtrl.push(CadastroPage)
     }
 
-    goToMainPageSeller(){
-      this.navCtrl.push(CadastroProdutoPage)
+    goToMainPageSeller(user){
+      this.navCtrl.push(CadastroProdutoPage, {User: user})
     }
 
-    goToMainPageCustomer(){
-      this.navCtrl.push(PedidoPage)
+    goToMainPageCustomer(user){
+      this.navCtrl.push(PedidoPage, {User: user})
     }
 }

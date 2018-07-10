@@ -4,7 +4,7 @@ import { filterQueryId } from '@angular/core/src/view/util';
 
 @Injectable()
 export class CustomersController {
-    private API_REQRES_URL = 'http://localhost:3000/api/';
+    private API_REQRES_URL = 'https://botijon.herokuapp.com/api/';
 
     constructor(public http: Http) { }
 

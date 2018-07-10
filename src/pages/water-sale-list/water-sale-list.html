@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Água Mineral</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-content padding>
+    <ion-list *ngFor="let water of list_waters">
+      <ion-item>
+        <ion-avatar item-start>
+        </ion-avatar>
+        <p>Descrição: {{water.description}}</p>
+        <p>Valor: {{water.value}}</p>
+      </ion-item>
+    </ion-list>
+
+</ion-content>

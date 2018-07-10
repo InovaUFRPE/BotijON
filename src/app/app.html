@@ -1,40 +1,61 @@
 <ion-menu id="cliente" [content]="content">
+
   <ion-header>
     <ion-toolbar>
+
       <ion-title>Menu</ion-title>
+
     </ion-toolbar>
   </ion-header>
+
   <ion-content>
     <ion-list>
       <button ion-item (click)="openPage(homePage)">
         Perfil
       </button>
+
       <button ion-item (click)="openPage(friendsPage)">
         Novo Pedido
       </button>
+
+      <button ion-item (click)="logout()">
+        Sair
+      </button>
     </ion-list>
   </ion-content>
+
 </ion-menu>
 
 <ion-menu id="vendedor" [content]="content">
+
   <ion-header>
     <ion-toolbar>
+
       <ion-title>Menu</ion-title>
+
     </ion-toolbar>
   </ion-header>
+
   <ion-content>
     <ion-list>
       <button ion-item (click)="openPage(homePage)">
         Pagina Inicial
       </button>
+
       <button ion-item (click)="openPage(friendsPage)">
         Novo Produto
       </button>
+
       <button ion-item (click)="openPage(eventsPage)">
         Vendas
       </button>
+
       <button ion-item (click)="closeMenu()">
         Pedidos
+      </button>
+
+      <button ion-item (click)="logout()">
+        Sair
       </button>
     </ion-list>
   </ion-content>
