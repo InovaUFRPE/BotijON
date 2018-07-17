@@ -1,4 +1,4 @@
-
+<!-- 
 <ion-header>
     <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
@@ -6,20 +6,24 @@
 
 </ion-header>
 
+ -->
+<ion-content no-padding>
 
-<ion-content padding>
-
-    <ion-row style="margin-top:20%" text-center>
-        <ion-col>Qual o Pedido para Hoje?</ion-col>
+    <ion-row text-center>
+        <ion-col>
+            <h3>Qual produto você deseja comprar?</h3>
+        </ion-col>
     </ion-row>
 
     <ion-row>
         <ion-col text-center>
-            <ion-img width="100" height="100" style="background: none;" src="assets/imgs/gas.png" (click)="buyGas()"></ion-img>
+            <ion-img src="assets/imgs/gas.png" (click)="buyGas()"></ion-img>
+            <h4>Gás</h4>
         </ion-col>
 
         <ion-col text-center>
-            <ion-img width="100" height="100" style="background: none;" src="assets/imgs/water.png" (click)="buyWater()"></ion-img>    
+            <ion-img src="assets/imgs/water.png" (click)="buyWater()"></ion-img>
+            <h4>Água</h4>
         </ion-col>
     </ion-row>
 

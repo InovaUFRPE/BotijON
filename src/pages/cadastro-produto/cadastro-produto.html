@@ -1,33 +1,50 @@
-<ion-header>
+<!-- <ion-header>
   <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
   </button>
-</ion-header>
+</ion-header> -->
 
 <ion-content text-center>
-<ion-list>
-  <ion-item>
-    <ion-label fixed>Tipo</ion-label>
-    <ion-select [(ngModel)]="product.product_type">
-      <ion-option value="agua">Água</ion-option>
-      <ion-option value="gas">Gás</ion-option>
-    </ion-select>
-  </ion-item>
 
-  <ion-item>
-    <ion-label fixed>Descrição</ion-label>
-    <ion-input [(ngModel)]="product.description" type="text" value=""></ion-input>
-  </ion-item>
+  <ion-row text-center class="addProductMargin">
+    <ion-col>
+      <h3>Adicionar novo produto</h3>
+    </ion-col>
+  </ion-row>
 
-  <ion-item>
-    <ion-label fixed>Valor</ion-label>
-    <ion-input [(ngModel)]="product.value" type="tel" value=""></ion-input>
-  </ion-item>
+  <ion-row text-center class="addProductMargin">
+    <ion-col>
+      
+      <ion-item>
+        <ion-label stacked>Tipo</ion-label>
+    
+        <ion-select [(ngModel)]="product.product_type">
+          <ion-option value="agua">Água</ion-option>
+          <ion-option value="gas">Gás</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <button ion-button style="margin-top:20px; margin-bottom: 20px" (click)="cadastrarProduto()">Cadastrar</button>
-    <br>
-    <button ion-button style="margin-top:10px" (click)= "goToHomePage()">Cancelar</button>
-    <br>
+      <ion-item>
+        <ion-label stacked>Descrição</ion-label>
+        <ion-input [(ngModel)]="product.description" type="text" value=""></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label stacked>Valor</ion-label>
+        <ion-input [(ngModel)]="product.value" type="tel" value=""></ion-input>
+      </ion-item>
 
-</ion-list>
+    </ion-col>
+  </ion-row>
+
+    <ion-row class="addProductMargin">
+      <ion-col text-center>
+        <button ion-button color="danger" (click)="goToHomePage()">Cancelar</button>
+      </ion-col>
+    
+      <ion-col text-center>
+        <button ion-button (click)="cadastrarProduto()">Cadastrar</button>
+      </ion-col>
+    </ion-row>
+
 </ion-content>

@@ -1,28 +1,49 @@
-<ion-content text-center padding="10px">
-  <ion-img width="350" height="400" style="background: none;" src="assets/imgs/logo2.png"></ion-img>
-  <ion-list>
+<ion-content text-center no-padding>
 
-    <ion-item>
-      <ion-label fixed>Nome</ion-label>
-      <ion-input [(ngModel)]="customerData.name" type="text"></ion-input>
-    </ion-item>
+  <ion-grid>
 
-    <ion-item>
-      <ion-label fixed>E-mail</ion-label>
-      <ion-input [(ngModel)]="customerData.email" type="text"></ion-input>
-    </ion-item>
+    <ion-row text-center>
+      <ion-col>
+        <ion-img src="assets/imgs/logo1.png"></ion-img>
+      </ion-col>
+    </ion-row>
 
-    <ion-item>
-      <ion-label fixed>Senha</ion-label>
-      <ion-input [(ngModel)]="customerData.password" type="password"></ion-input>
-    </ion-item>
+    <ion-row text-center>
 
+      <ion-col>
 
-    <button ion-button (click)="registerCustomer()" style="margin-top:20px; margin-bottom: 20px">Cadastre-se</button>
-    <br> já possui cadastro?
-    <br>
-    <button ion-button style="margin-top:10px" (click)="goToHomePage()">Acessar</button>
-    <br>
+        <ion-item>
+          <ion-label floating>Nome</ion-label>
+          <ion-input [(ngModel)]="customerData.name" type="text" clearInput></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label floating>E-mail</ion-label>
+          <ion-input [(ngModel)]="customerData.email" type="email" clearInput></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label floating>Senha</ion-label>
+          <ion-input [(ngModel)]="customerData.password" type="password" clearOnEdit min="5"></ion-input>
+        </ion-item>
 
-  </ion-list>
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button (click)="registerCustomer()">Cadastre-se</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row text-center>
+      <ion-col>
+        <p>Já possui cadastro?</p>
+        <h4 (click)="goToHomePage()">Acesse o app clicando aqui!</h4>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
 </ion-content>

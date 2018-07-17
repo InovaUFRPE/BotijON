@@ -1,23 +1,36 @@
-<ion-content text-center padding="10px">
-  <ion-img width="350" height="400" style="background: none;" src="assets/imgs/logo2.png"></ion-img>
-  <ion-list>
+<ion-content no-padding>
+  <ion-grid>
 
-  <ion-item>
-    <ion-label fixed>E-mail</ion-label>
-    <ion-input [(ngModel)]="userData.email" type="text" value=""></ion-input>
-  </ion-item>
+    <ion-row text-center>
+      <ion-col>
+        <ion-img src="assets/imgs/logo1.png"></ion-img>
+      </ion-col>
+    </ion-row>
 
-  <ion-item>
-    <ion-label fixed>Password</ion-label>
-    <ion-input [(ngModel)]="userData.password" type="password"></ion-input>
-  </ion-item>
+    <ion-row text-center>
+      <ion-col>
+        
+        <ion-item>
+            <ion-label floating>E-mail</ion-label>
+            <ion-input [(ngModel)]="userData.email" type="email" clearInput></ion-input>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label floating>Senha</ion-label>
+            <ion-input [(ngModel)]="userData.password" type="password" clearOnEdit min="5"></ion-input>
+          </ion-item>
+        
+          <button ion-button id="btn-login" (click)="validateLogin()">Acessar</button>
+        
+          <ion-row text-center>
+            <ion-col>
+              <p>Ainda não possui cadastro?</p>
+              <h4 (click)="goToTabsPage()">Faça seu cadastro aqui!</h4>
+            </ion-col>
+          </ion-row>
+        
+      </ion-col>
+    </ion-row>
 
-    <button ion-button style="margin-top:20px; margin-bottom: 20px" (click)= "validateLogin()" >Acessar</button>
-    <br>
-    Ainda não se cadastrou?
-    <br>
-    <button ion-button style="margin-top:10px" (click) = "goToTabsPage()">Cadastre-se</button>
-    <br>
-
-</ion-list>
+  </ion-grid>
 </ion-content>

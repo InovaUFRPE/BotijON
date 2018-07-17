@@ -1,3 +1,30 @@
 page-cadastro-vendedor {
-
+    .col{
+        padding: 0!important;
+    }
+    ion-img{
+        width:168px;
+        height: 168px;
+        background: none;
+    }
+    button{
+        margin-top:20px!important; 
+        margin-bottom: 20px;
+    }
+    p{
+        margin-top: 7px;
+        margin-bottom: 7px;
+    }
+    h4{
+        color: #64b7f1;
+        margin-top: 7px;
+        margin-bottom: 10px;
+    }
+    .item-ios {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .input-wrapper{
+        height: 63px;
+    }
 }
