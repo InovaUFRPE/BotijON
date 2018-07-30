@@ -15,6 +15,7 @@ import { CadastroProdutoPage } from '../pages/cadastro-produto/cadastro-produto'
 import { PedidoPage } from '../pages/pedido/pedido';
 import { GasSaleListPage } from '../pages/gas-sale-list/gas-sale-list';
 import { WaterSaleListPage } from '../pages/water-sale-list/water-sale-list';
+import { PedidoAndamentoPage } from '../pages/pedido-andamento/pedido-andamento';
 
 // PROVIDERS
 import { UsersController } from '../providers/users/users-controller/users-contoller';
@@ -35,7 +36,8 @@ import { AddressesControllerProvider } from '../providers/addresses-controller/a
     CadastroProdutoPage,
     PedidoPage,
     GasSaleListPage,
-    WaterSaleListPage
+    WaterSaleListPage,
+    PedidoAndamentoPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { AddressesControllerProvider } from '../providers/addresses-controller/a
     CadastroProdutoPage,
     PedidoPage,
     GasSaleListPage,
-    WaterSaleListPage
+    WaterSaleListPage,
+    PedidoAndamentoPage
   ],
   providers: [
     StatusBar,
