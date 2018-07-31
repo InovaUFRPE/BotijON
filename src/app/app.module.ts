@@ -56,6 +56,7 @@ import { PagamentoPage } from '../pages/pagamento/pagamento';
     EditarEnderecoPage,
     ProdutoPage,
     PagamentoPage
+
   ],
   imports: [
     BrowserModule,
