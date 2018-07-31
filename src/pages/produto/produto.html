@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Produto</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content id="conteudo" padding>
+
+  <ion-card *ngIf="getType()">
+    <img text-center src="assets/imgs/water.png" />
+    <ion-card-content>
+      <ion-card-title>
+        {{product.description}}
+      </ion-card-title>
+      <h2>Valor: {{product.value}}</h2>
+      <h2>Vendedor: {{seller.name}}</h2>
+      <ion-label stacked>Quantidade:</ion-label>
+      <ion-input [(ngModel)]="request.quantity" value="request.quantity" type="number"></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="!getType()">
+    <img text-center src="assets/imgs/gas.png" />
+    <ion-card-content>
+      <ion-card-title>
+        {{product.description}}
+      </ion-card-title>
+      <h2>Valor: {{product.value}}</h2>
+      <h2>Vendedor: {{seller.name}}</h2>
+      <ion-label stacked>Quantidade:</ion-label>
+      <ion-input [(ngModel)]="request.quantity" value="request.quantity" type="number"></ion-input>
+      
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row class="addProductMargin">
+    <ion-col text-center>
+      <button ion-button color="danger" (click)="goToBackPage()">Cancelar</button>
+    </ion-col>
+  
+    <ion-col text-center>
+      <button ion-button (click)="comprarProduto()">Comprar</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

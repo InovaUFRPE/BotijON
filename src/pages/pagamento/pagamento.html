@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Confirmar Pagamento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <h3>Produto: {{product.description}}</h3>
+        <h4>Valor Pagamento: {{payment.value}}</h4>
+        <br>
+        <ion-item>
+          <ion-select>
+            <ion-option value="dinheiro" selected readonly>dinheiro</ion-option>
+            <ion-option value="cartao">cartao</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <h4>Logradouro: {{address.address}}</h4>
+        <h4>Número: {{address.number}}</h4>
+        <h4>Bairro: {{address.neighborhood}}</h4>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row text-center>
+      <ion-col text-center>
+        <button ion-button color="danger" (click)="goToPedidoPage()">Cancelar</button>
+      </ion-col>
+    
+      <ion-col text-center>
+        <button ion-button (click)="confirmarPagamento()">Confimar</button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

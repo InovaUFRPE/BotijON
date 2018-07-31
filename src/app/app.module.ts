@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 // PAGES
 import { MyApp } from './app.component';
@@ -13,8 +14,14 @@ import { CadastroClientePage } from '../pages/cadastro-cliente/cadastro-cliente'
 import { CadastroVendedorPage } from '../pages/cadastro-vendedor/cadastro-vendedor';
 import { CadastroProdutoPage } from '../pages/cadastro-produto/cadastro-produto';
 import { PedidoPage } from '../pages/pedido/pedido';
-import { GasSaleListPage } from '../pages/gas-sale-list/gas-sale-list';
-import { WaterSaleListPage } from '../pages/water-sale-list/water-sale-list';
+import { MeusProdutosPage } from '../pages/meus-produtos/meus-produtos';
+import { MeusPedidosPage } from '../pages/meus-pedidos/meus-pedidos';
+import { MeuPerfilPage } from '../pages/meu-perfil/meu-perfil';
+import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
+import { ListarGasPage } from '../pages/listar-gas/listar-gas';
+import { ListarAguaPage } from '../pages/listar-agua/listar-agua';
+import { VendasPage } from '../pages/vendas/vendas';
+import { MeusResultadosPage } from '../pages/meus-resultados/meus-resultados';
 
 // PROVIDERS
 import { UsersController } from '../providers/users/users-controller/users-contoller';
@@ -24,6 +31,10 @@ import { ProductsControllerProvider } from '../providers/products-controller/pro
 import { PaymentsControllerProvider } from '../providers/payments-controller/payments-controller';
 import { RequestsControllerProvider } from '../providers/requests-controller/requests-controller';
 import { AddressesControllerProvider } from '../providers/addresses-controller/addresses-controller';
+import { Session } from '../providers/users/session';
+import { EditarEnderecoPage } from '../pages/editar-endereco/editar-endereco';
+import { ProdutoPage } from '../pages/produto/produto';
+import { PagamentoPage } from '../pages/pagamento/pagamento';
 
 @NgModule({
   declarations: [
@@ -34,12 +45,22 @@ import { AddressesControllerProvider } from '../providers/addresses-controller/a
     CadastroVendedorPage,
     CadastroProdutoPage,
     PedidoPage,
-    GasSaleListPage,
-    WaterSaleListPage
+    MeusProdutosPage,
+    MeusPedidosPage,
+    MeuPerfilPage,
+    EditarPerfilPage,
+    ListarGasPage,
+    ListarAguaPage,
+    VendasPage,
+    MeusResultadosPage,
+    EditarEnderecoPage,
+    ProdutoPage,
+    PagamentoPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     HttpModule
   ],
   bootstrap: [IonicApp],
@@ -51,8 +72,17 @@ import { AddressesControllerProvider } from '../providers/addresses-controller/a
     CadastroVendedorPage,
     CadastroProdutoPage,
     PedidoPage,
-    GasSaleListPage,
-    WaterSaleListPage
+    MeusProdutosPage,
+    MeusPedidosPage,
+    MeuPerfilPage,
+    EditarPerfilPage,
+    ListarGasPage,
+    ListarAguaPage,
+    VendasPage,
+    MeusResultadosPage,
+    EditarEnderecoPage,
+    ProdutoPage,
+    PagamentoPage
   ],
   providers: [
     StatusBar,
@@ -64,6 +94,7 @@ import { AddressesControllerProvider } from '../providers/addresses-controller/a
     PaymentsControllerProvider,
     RequestsControllerProvider,
     AddressesControllerProvider,
+    Session,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

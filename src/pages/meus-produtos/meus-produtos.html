@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus Produtos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="conteudo" padding>
+
+  <ion-list *ngFor="let produto of lista_produtos">
+    <ion-item class="item item-block item-md">
+      <p>Descrição: {{produto.description}}</p>
+      <p>Valor: {{produto.value}}</p>
+      <p>Tipo: {{produto.product_type}}</p>
+      <p>Status: {{produto.status}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

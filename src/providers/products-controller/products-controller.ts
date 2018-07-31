@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ProductsControllerProvider {
   private API_REQRES_URL = 'https://botijon.herokuapp.com/api/';
+  // private API_REQRES_URL = 'http://localhost:3000/api/';
 
   constructor(public http: Http) {
     console.log('Hello ProductsControllerProvider Provider');
@@ -24,6 +25,19 @@ export class ProductsControllerProvider {
   getProductById(id: number) {
     return new Promise((resolve, reject) => {
       let url = this.API_REQRES_URL + 'products/' + id;
+      this.http.get(url)
+        .subscribe((result: any) => {
+          resolve(result.json())
+        },
+          (error) => {
+            reject(error.json())
+          });
+    });
+  }
+
+  getProductBySeller(id: number) {
+    return new Promise((resolve, reject) => {
+      let url = this.API_REQRES_URL + 'products/byseller/' + id;
       this.http.get(url)
         .subscribe((result: any) => {
           resolve(result.json())

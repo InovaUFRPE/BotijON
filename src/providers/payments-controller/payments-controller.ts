@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PaymentsControllerProvider {
   private API_REQRES_URL = 'https://botijon.herokuapp.com/api/';
+  // private API_REQRES_URL = 'http://localhost:3000/api/';
 
   constructor(public http: Http) {
     console.log('Hello PaymentsControllerProvider Provider');
@@ -21,9 +22,35 @@ export class PaymentsControllerProvider {
     });
   }
 
-  getPaymenttById(id: number) {
+  getPaymentById(id: number) {
     return new Promise((resolve, reject) => {
       let url = this.API_REQRES_URL + 'payments/' + id;
+      this.http.get(url)
+        .subscribe((result: any) => {
+          resolve(result.json())
+        },
+          (error) => {
+            reject(error.json())
+          });
+    });
+  }
+
+  getAllPaymentsByCustomer(id: number) {
+    return new Promise((resolve, reject) => {
+      let url = this.API_REQRES_URL + 'payments/bycustomer/' + id;
+      this.http.get(url)
+        .subscribe((result: any) => {
+          resolve(result.json())
+        },
+          (error) => {
+            reject(error.json())
+          });
+    });
+  }
+
+  getAllPaymentsToSeller(id: number) {
+    return new Promise((resolve, reject) => {
+      let url = this.API_REQRES_URL + 'payments/toseller/' + id;
       this.http.get(url)
         .subscribe((result: any) => {
           resolve(result.json())

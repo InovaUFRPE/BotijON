@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meu Perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-row text-center>
+    
+      <ion-col>
+        <img src="assets/imgs/user.png" alt="">
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row text-center>
+    
+      <ion-col>
+        <h2 class="text">{{ currentUser.name }}</h2>
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row *ngIf="getType()" text-center>
+    
+      <ion-col (click)="toMeusProdutos()">
+        <h4>
+          <ion-icon name="md-clipboard"></ion-icon> 
+          Meus Produtos
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row *ngIf="getType()" text-center>
+    
+      <ion-col (click)="toMeusResultados()">
+        <h4>
+          <ion-icon name="md-stats"></ion-icon>
+          Meus Resultados
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+    
+    <ion-row *ngIf="!getType()" text-center>
+
+      <ion-col (click)="toMeusPedidos()">
+        <h4>
+          <ion-icon name="md-cart"></ion-icon>
+          Meus Pedidos
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row text-center>
+    
+      <ion-col (click)="toEditarPerfil()">
+        <h4>
+          <ion-icon name="md-create"></ion-icon> 
+          Editar Perfil
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row text-center>
+    
+      <ion-col (click)="toEditarEndereco()">
+        <h4>
+          <ion-icon name="md-pin"></ion-icon> 
+          Editar Endereço
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+
+    <ion-row text-center>
+    
+      <ion-col (click)="deslogar()">
+        <h4>
+          <ion-icon name="md-log-out"></ion-icon> 
+          Sair
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+
+</ion-content>

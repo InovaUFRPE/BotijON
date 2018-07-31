@@ -1,64 +1,62 @@
-<ion-menu id="cliente" [content]="content">
+<ion-menu type="overlay" id="myMenu" [content]="mycontent">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-  <ion-header>
-    <ion-toolbar>
+    <ion-content *ngIf="typeUser">
+        <ion-list>
 
-      <ion-title>Menu</ion-title>
+            <button (click)="pushPage(novoProduto)" ion-item>
+                <ion-icon name="ios-add-circle-outline"></ion-icon>
+                Novo Produto
+            </button>
 
-    </ion-toolbar>
-  </ion-header>
+            <button (click)="pushPage(vendas)" ion-item >
+                <ion-icon name="logo-usd"></ion-icon> 
+                Vendas
+            </button>
 
-  <ion-content>
-    <ion-list>
-      <button ion-item (click)="openPage(homePage)">
-        Perfil
-      </button>
+            <button (click)="pushPage(meusProdutosPage)" ion-item >
+                <ion-icon name="md-clipboard"></ion-icon> 
+                Meus Produtos
+            </button>
 
-      <button ion-item (click)="openPage(friendsPage)">
-        Novo Pedido
-      </button>
+            <button (click)="pushPage(meusResultados)" ion-item >
+                <ion-icon name="md-stats"></ion-icon> 
+                Meus Resultados
+            </button>
 
-      <button ion-item (click)="logout()">
-        Sair
-      </button>
-    </ion-list>
-  </ion-content>
+            <button (click)="pushPage(meuPerfil)" ion-item >
+                <ion-icon name="ios-contact"></ion-icon> 
+                Meu Perfil
+            </button>
+
+        </ion-list>
+    </ion-content>
+
+    <ion-content *ngIf="!typeUser">
+        <ion-list>
+
+            <button (click)="pushPage(pedidoPage)" ion-item>
+                <ion-icon name="ios-add-circle-outline"></ion-icon>
+                Novo Pedido
+            </button>
+
+            <button (click)="pushPage(meusPedidos)" ion-item >
+                <ion-icon name="md-cart"></ion-icon> 
+                Meus Pedidos
+            </button>
+
+            <button (click)="pushPage(meuPerfil)" ion-item >
+                <ion-icon name="ios-contact"></ion-icon> 
+                Meu Perfil
+            </button>
+
+        </ion-list>
+    </ion-content>
 
 </ion-menu>
 
-<ion-menu id="vendedor" [content]="content">
-
-  <ion-header>
-    <ion-toolbar>
-
-      <ion-title>Menu</ion-title>
-
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-      <button ion-item (click)="openPage(homePage)">
-        Pagina Inicial
-      </button>
-
-      <button ion-item (click)="openPage(friendsPage)">
-        Novo Produto
-      </button>
-
-      <button ion-item (click)="openPage(eventsPage)">
-        Vendas
-      </button>
-
-      <button ion-item (click)="closeMenu()">
-        Pedidos
-      </button>
-
-      <button ion-item (click)="logout()">
-        Sair
-      </button>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
+<ion-nav [root]="rootPage" #mycontent swipeBackEnabled="false" swipeEnabled="false"></ion-nav>

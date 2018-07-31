@@ -5,6 +5,7 @@ import { filterQueryId } from '@angular/core/src/view/util';
 @Injectable()
 export class CustomersController {
     private API_REQRES_URL = 'https://botijon.herokuapp.com/api/';
+    // private API_REQRES_URL = 'http://localhost:3000/api/';
 
     constructor(public http: Http) { }
 
@@ -34,9 +35,33 @@ export class CustomersController {
         });
     }
 
-    updateUser(id: number, customer: any) {
+    changeName(id: number, customer: any) {
         return new Promise((resolve, reject) => {
-            this.http.put(this.API_REQRES_URL + 'customers/update/' + id, customer)
+            this.http.put(this.API_REQRES_URL + 'customers/changename/' + id, customer)
+                .subscribe((result: any) => {
+                    resolve(result.json())
+                },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    changePassword(id: number, customer: any) {
+        return new Promise((resolve, reject) => {
+            this.http.put(this.API_REQRES_URL + 'customers/changepassword/' + id, customer)
+                .subscribe((result: any) => {
+                    resolve(result.json())
+                },
+                    (error) => {
+                        reject(error);
+                    });
+        });
+    }
+
+    changeAddress(id: number, customer: any) {
+        return new Promise((resolve, reject) => {
+            this.http.put(this.API_REQRES_URL + 'customers/changeaddress/' + id, customer)
                 .subscribe((result: any) => {
                     resolve(result.json())
                 },

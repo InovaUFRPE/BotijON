@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Água mineral</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="conteudo" padding>
+
+  <ion-list *ngFor="let water of list_waters">
+    <ion-item class="item item-block item-md" (click)="clickItem(water)">
+      <ion-avatar item-start>
+        <td>
+          <img src="assets/imgs/water.png" />
+        </td>
+      </ion-avatar>
+      <p>Descrição: {{water.description}}</p>
+      <p>Valor: {{water.value}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

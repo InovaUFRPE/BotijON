@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-row text-center>
+    <ion-col>
+  
+      <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input [(ngModel)]="currentUser.name" value="currentUser.name" placeholder="Nome" type="text"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Senha</ion-label>
+        <ion-input [(ngModel)]="currentUser.password" value="currentUser.password" placeholder="Senha " type="password"></ion-input>
+      </ion-item>
+    
+    </ion-col>
+  </ion-row>
+  
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button color="danger" (click)="goToBeforePage()">Cancelar</button>
+    </ion-col>
+  
+    <ion-col text-center>
+      <button ion-button (click)="editarUsuario()">Editar</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

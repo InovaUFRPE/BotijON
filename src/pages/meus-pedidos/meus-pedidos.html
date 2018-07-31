@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus Pedidos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="conteudo" padding>
+
+  <ion-list *ngFor="let pedidos of lista_pedidos">
+    <ion-item class="item item-block item-md">
+      <p>Valor total: {{pedidos.value}}</p>
+      <p>Tipo pagamento: {{pedidos.payment_type}}</p>
+      <p>Quantidade itens: {{pedidos.quantity}}</p>
+      <p>Data: {{pedidos.date | date: 'dd/MM/yyyy'}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

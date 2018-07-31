@@ -11,8 +11,9 @@ import { CadastroVendedorPage } from '../cadastro-vendedor/cadastro-vendedor';
 })
 export class CadastroPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CadastroPage');

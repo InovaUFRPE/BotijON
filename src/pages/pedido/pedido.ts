@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { GasSaleListPage } from '../gas-sale-list/gas-sale-list';
-import { WaterSaleListPage } from '../water-sale-list/water-sale-list';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { Session } from '../../providers/users/session';
+import { Storage } from "@ionic/storage";
+import { ListarGasPage } from '../listar-gas/listar-gas';
+import { ListarAguaPage } from '../listar-agua/listar-agua';
 
 @IonicPage()
 @Component({
@@ -10,25 +12,39 @@ import { WaterSaleListPage } from '../water-sale-list/water-sale-list';
 })
 export class PedidoPage {
 
-  User = JSON['data[0]'];
+  currentUser: any;
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams) {
-    this.User = this.navParams.get("User")
+    public navParams: NavParams,
+    public session: Session,
+    public storage: Storage,
+    public menuCtrl: MenuController) {
+
+    this.recuperarUser();
+
+    this.menuCtrl.enable(true, 'myMenu')
+    
   }
 
   ionViewDidLoad() {
-    console.log(this.User);
     console.log('ionViewDidLoad PedidoPage');
   }
 
+  recuperarUser(){
+    this.session.get()
+    .then(res => {
+      this.currentUser = res;
+      console.log('usuário logado  >>> ', this.currentUser);
+    });
+  }
+
   buyGas(){
-    this.navCtrl.push(GasSaleListPage);
+    this.navCtrl.push(ListarGasPage);
   }
 
   buyWater(){
-    this.navCtrl.push(WaterSaleListPage);
+    this.navCtrl.push(ListarAguaPage);
   }
 
 }

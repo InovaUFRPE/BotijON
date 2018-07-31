@@ -2,8 +2,6 @@
 
   <ion-grid>
 
-    <ion-scroll scrollY="true">
-
       <ion-row text-center>
         <ion-col>
           <ion-img src="assets/imgs/logo1.png"></ion-img>
@@ -20,7 +18,7 @@
           
           <ion-item>
             <ion-label floating>E-mail</ion-label>
-            <ion-input [(ngModel)]="sellerData.email" type="text"></ion-input>
+            <ion-input [(ngModel)]="sellerData.email" type="email"></ion-input>
           </ion-item>
           
           <ion-item>
@@ -48,8 +46,6 @@
           <h4 (click)="goToHomePage()">Acesse o app clicando aqui!</h4>
         </ion-col>
       </ion-row>
-
-    </ion-scroll>
 
   </ion-grid>
 

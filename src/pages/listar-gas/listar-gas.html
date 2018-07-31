@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Gás de cozinha</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content id="conteudo" padding>
+
+  <ion-list *ngFor="let gas of list_gas">
+    <ion-item class="item item-block item-md" (click)="clickItem(gas)">
+      <ion-avatar item-start>
+        <td>
+          <img src="assets/imgs/gas.png" />
+        </td>
+      </ion-avatar>
+      <p>Descrição: {{gas.description}}</p>
+      <p>Valor: {{gas.value}}</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
