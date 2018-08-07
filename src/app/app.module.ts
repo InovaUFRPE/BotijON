@@ -22,6 +22,10 @@ import { ListarGasPage } from '../pages/listar-gas/listar-gas';
 import { ListarAguaPage } from '../pages/listar-agua/listar-agua';
 import { VendasPage } from '../pages/vendas/vendas';
 import { MeusResultadosPage } from '../pages/meus-resultados/meus-resultados';
+import { EditarEnderecoPage } from '../pages/editar-endereco/editar-endereco';
+import { ProdutoPage } from '../pages/produto/produto';
+import { PagamentoPage } from '../pages/pagamento/pagamento';
+import { EditarProdutoPage } from '../pages/editar-produto/editar-produto';
 
 // PROVIDERS
 import { UsersController } from '../providers/users/users-controller/users-contoller';
@@ -32,9 +36,6 @@ import { PaymentsControllerProvider } from '../providers/payments-controller/pay
 import { RequestsControllerProvider } from '../providers/requests-controller/requests-controller';
 import { AddressesControllerProvider } from '../providers/addresses-controller/addresses-controller';
 import { Session } from '../providers/users/session';
-import { EditarEnderecoPage } from '../pages/editar-endereco/editar-endereco';
-import { ProdutoPage } from '../pages/produto/produto';
-import { PagamentoPage } from '../pages/pagamento/pagamento';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { PagamentoPage } from '../pages/pagamento/pagamento';
     MeusResultadosPage,
     EditarEnderecoPage,
     ProdutoPage,
-    PagamentoPage
+    PagamentoPage,
+    EditarProdutoPage
 
   ],
   imports: [
@@ -83,7 +85,8 @@ import { PagamentoPage } from '../pages/pagamento/pagamento';
     MeusResultadosPage,
     EditarEnderecoPage,
     ProdutoPage,
-    PagamentoPage
+    PagamentoPage,
+    EditarProdutoPage
   ],
   providers: [
     StatusBar,

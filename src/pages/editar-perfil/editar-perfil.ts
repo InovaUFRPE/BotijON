@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { CustomersController } from '../../providers/customers/customers-controller';
@@ -24,7 +24,8 @@ export class EditarPerfilPage {
     public session: Session,
     public storage: Storage,
     public customerController: CustomersController,
-    public sellerConroller: SellersController
+    public sellerConroller: SellersController,
+    public toastCtrl: ToastController
     ) {
 
     this.recuperarUser();
@@ -40,6 +41,9 @@ export class EditarPerfilPage {
   }
 
   editarUsuario(){
+
+    let temp:boolean = false;
+    
     if(!!this.currentUser.cpfcnpj){
       if (this.currentUser.name != '') {
         let userData: any = { 'name': '' };
@@ -49,6 +53,7 @@ export class EditarPerfilPage {
             console.log(res)
           })
           .catch(e => console.error(e));
+          temp = true;
       }
       if (this.currentUser.password != '') {
         let userData: any = { 'password': '' };
@@ -58,6 +63,7 @@ export class EditarPerfilPage {
             console.log(res)
           })
           .catch(e => console.error(e));
+          temp = true;
       }
 
       this.sellerConroller.getUser(this.currentUser.id)
@@ -76,6 +82,7 @@ export class EditarPerfilPage {
             console.log(res)
           })
           .catch(e => console.error(e));
+          temp = true;
       }
       if (this.currentUser.password != '') {
         let userData: any = { 'password': '' };
@@ -85,6 +92,7 @@ export class EditarPerfilPage {
             console.log(res)
           })
           .catch(e => console.error(e));
+          temp = true;
       }
 
       this.customerController.getUser(this.currentUser.id)
@@ -95,7 +103,13 @@ export class EditarPerfilPage {
         .catch(e => console.error(e));
     }
 
-    this.navCtrl.setRoot(MeuPerfilPage);
+    if(!temp){
+      this.presentToast("Não foi possível alterar os dados!");
+    }
+    else{
+      this.presentToast("Dados alterados com sucesso!");
+      this.navCtrl.setRoot(MeuPerfilPage);
+    }
 
   }
 
@@ -105,6 +119,20 @@ export class EditarPerfilPage {
         this.currentUser = res;
         console.log('usuário logado  >>> ', this.currentUser);
       });
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }

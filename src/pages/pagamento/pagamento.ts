@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { ProductsControllerProvider } from '../../providers/products-controller/products-controller';
@@ -8,6 +8,7 @@ import { MeusPedidosPage } from '../meus-pedidos/meus-pedidos';
 import { AddressesControllerProvider } from '../../providers/addresses-controller/addresses-controller';
 import { RequestsControllerProvider } from '../../providers/requests-controller/requests-controller';
 import { PaymentsControllerProvider } from '../../providers/payments-controller/payments-controller';
+import { EditarEnderecoPage } from '../editar-endereco/editar-endereco';
 
 @IonicPage()
 @Component({
@@ -62,7 +63,8 @@ export class PagamentoPage {
     public productController: ProductsControllerProvider,
     public addressController: AddressesControllerProvider,
     public requestController: RequestsControllerProvider,
-    public paymentController: PaymentsControllerProvider) {
+    public paymentController: PaymentsControllerProvider,
+    public toastCtrl: ToastController) {
 
     this.recuperarUser();
 
@@ -75,6 +77,10 @@ export class PagamentoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PagamentoPage');
+  }
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter PagamentoPage');
+    this.getEndereco(this.currentUser.address_id);
   }
 
   getProduct(){
@@ -93,13 +99,20 @@ export class PagamentoPage {
   }
 
   confirmarPagamento(){
-    console.log("CRIAR PAGAMENTO: ",this.payment)
-    this.paymentController.createPayment(this.payment)
-    .then((res:any) => {
-      console.log(res)
-      this.navCtrl.setRoot(MeusPedidosPage);
-    })
-    .catch(e => console.error(e));
+    if (this.currentUser.address_id != 0 || this.currentUser.address_id == "" || this.currentUser.address_id == null || this.currentUser.address_id == "undefined" || this.currentUser.address_id == " "){
+      console.log("CRIAR PAGAMENTO: ",this.payment)
+      this.paymentController.createPayment(this.payment)
+        .then((res:any) => {
+          console.log(res);
+          this.presentToast("Pedido confirmado!");
+          this.navCtrl.setRoot(MeusPedidosPage);
+        })
+        .catch(e => console.error(e));
+    }
+    else{
+      this.presentToast("Primeiro cadastre um endereço!");
+      this.navCtrl.push(EditarEnderecoPage);
+    }
   }
 
   recuperarUser() {
@@ -133,6 +146,20 @@ export class PagamentoPage {
         this.payment.request_id = number3;
       })
       .catch(e => console.error(e))
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }

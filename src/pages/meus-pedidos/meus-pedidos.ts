@@ -4,6 +4,7 @@ import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { PaymentsControllerProvider } from '../../providers/payments-controller/payments-controller';
 import { ProductsControllerProvider } from '../../providers/products-controller/products-controller';
+import { PedidoPage } from '../pedido/pedido';
 
 @IonicPage()
 @Component({
@@ -47,6 +48,10 @@ export class MeusPedidosPage {
         this.getAllPedidos(this.currentUser.id)
         console.log('usuário logado  >>> ', this.currentUser);
       });
+  }
+
+  toPedidoPage(){
+    this.navCtrl.push(PedidoPage);
   }
 
 }

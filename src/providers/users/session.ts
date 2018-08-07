@@ -11,6 +11,7 @@ export class Session {
     }
     // setando uma seção e passando o tipo de usuário
     create(usuario: any) {
+        this.storage.clear();
         this.storage.set('usuario', usuario);
     }
 
@@ -21,6 +22,9 @@ export class Session {
     // Quando deslogar deve remova do storage
     remove() {
         this.storage.remove('usuario');
+        this.storage.clear().then(() => {
+            console.log('all keys cleared');
+        });
     }
 
     exist() {

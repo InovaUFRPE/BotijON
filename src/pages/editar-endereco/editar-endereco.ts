@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { AddressesControllerProvider } from '../../providers/addresses-controller/addresses-controller';
@@ -37,7 +37,8 @@ export class EditarEnderecoPage {
     public storage: Storage,
     public addressController: AddressesControllerProvider,
     public customerController: CustomersController,
-    public sellerController: SellersController
+    public sellerController: SellersController,
+    public toastCtrl: ToastController
     ){
     
       this.recuperarUser();
@@ -60,152 +61,175 @@ export class EditarEnderecoPage {
   }
 
   editarEndereco(){
-    let addressString = this.addressController.stringAddress(this.endereco);
-    this.addressController.getCoordenates(addressString)
-      .then((res: any) => {
-        let data = res.results[0].geometry.location;
+    if(this.validationFields()){
+      
+      let addressString = this.addressController.stringAddress(this.endereco);
 
-        this.endereco.latitude = String(data.lat);
-        this.endereco.longitude = String(data.lng);
+      this.addressController.getCoordenates(addressString)
+        .then((res: any) => {
+          let data = res.results[0].geometry.location;
 
-        if (this.currentUser.address_id == null) {
+          this.endereco.latitude = String(data.lat);
+          this.endereco.longitude = String(data.lng);
 
-          let temp: any = { "address": "", "number": "", "cep": "" }
-          temp.address = this.endereco.address;
-          temp.number = this.endereco.number;
-          temp.cep = this.endereco.cep;
+          console.log("Verificar se usuario tem algum endereço:")
+          if (this.currentUser.address_id == null) {
 
-          this.addressController.getAddressPerAddressCepAndNumber(temp)
-            .then((res:any) => {
-              if(res.status == "success"){
+            let temp: any = { "address": "", "number": "", "cep": "" }
+            temp.address = this.endereco.address;
+            temp.number = this.endereco.number;
+            temp.cep = this.endereco.cep;
 
-                let a_id = res.data[0].id;
-                let ad = {"address_id":""}
-                ad.address_id = a_id;
-                console.log("entrou aqui 1");
-                this.addressController.updateAddress(a_id, this.endereco)
-                .then((res:any) => {
-                  console.log(res);
-                  console.log("entrou aqui 2");
-                  if(!!this.currentUser.cpfcnpj){
-                    this.sellerController.changeAddress(this.currentUser.id, ad);
-                    console.log("entrou aqui 2.1");
-                  }
-                  else{
-                    this.customerController.changeAddress(this.currentUser.id, ad);
-                    console.log("entrou aqui 2.2");
-                  }
+            this.addressController.getAddressPerAddressCepAndNumber(temp)
+              .then((res:any) => {
+                console.log("Verificar se endereço já existe:");
 
-                  this.currentUser.address_id = a_id;
-                  this.session.remove();
-                  this.session.create(this.currentUser);
-                  this.navCtrl.setRoot(MeuPerfilPage);
-                })
-                .catch(e => console.error(e));
-              }
-              else{
-                console.log("entrou aqui 3");
-                this.addressController.createAddress(this.endereco)
-                .then((res:any) => {
-                  if(res.status == "success"){
+                if(res.status == "success"){
 
-                    console.log("entrou aqui 4");
+                  console.log("Endereço já existe");
 
-                    this.addressController.getAddressPerAddressCepAndNumber(temp)
-                      .then((res: any) => {
+                  let a_id = res.data[0].id;
+                  let ad = {"address_id":""}
+                  ad.address_id = a_id;
 
-                        console.log("entrou aqui 5");
+                  console.log("Atualizar endereço já existente com Lat e Long");
+                  this.addressController.updateAddress(a_id, this.endereco)
+                  .then((res:any) => {
+                    console.log(res);
 
-                        let temp2:any = {"address_id":""};
-                        let a_id2 = res.data[0].id
-                        temp2.address_id = a_id2;
-
-                        if(!!this.currentUser.cpfcnpj){
-
-                          console.log("entrou aqui 6");
-                          this.sellerController.changeAddress(this.currentUser.id,temp2)
-                            .then((res:any) => {
-                              if(res.status == "success"){
-
-                                console.log("entrou aqui 7");
-                                this.currentUser.address_id = a_id2;
-                                this.session.remove();
-                                this.session.create(this.currentUser);
-                                this.navCtrl.setRoot(MeuPerfilPage);
-                              }
-                              else{
-                                console.log("error 2");
-                              }
-                            })
-                        }
-                        else{
-                          console.log("entrou aqui 8");
-                          this.customerController.changeAddress(this.currentUser.id, temp2)
-                            .then((res: any) => {
-                              if (res.status == "success") {
-
-                                console.log("entrou aqui 9");
-                                this.currentUser.address_id = a_id2;
-                                this.session.remove();
-                                this.session.create(this.currentUser);
-                                this.navCtrl.setRoot(MeuPerfilPage);
-                              }
-                              else {
-                                console.log("error 3");
-                              }
-                            })
-                        }
-                      })
-                      .catch(e => console.error(e));
-                  }
-                  else{
-                    console.log("error 4");
-                  }
-                })
-              }
-            })
-        }
-        else{
-          console.log("entrou aqui 10");
-          this.addressController.updateAddress(this.currentUser.id, this.endereco)
-            .then((res: any) => {
-              console.log("entrou aqui 11");
-
-              let ad2 = {"address_id":""};
-              ad2.address_id = this.endereco.id;
-
-              if (!!this.currentUser.cpfcnpj) {
-
-                this.sellerController.changeAddress(this.currentUser.id, ad2)
-                  .then((res: any) => {
-                    if (res.status == "success") {
-                      this.navCtrl.setRoot(MeuPerfilPage);
+                    console.log("Verificando o tipo do usuário");
+                    if(!!this.currentUser.cpfcnpj){
+                      this.sellerController.changeAddress(this.currentUser.id, ad);
+                      console.log("Modificar endereço vendedor");
                     }
-                    else {
-                      console.log("error");
+                    else{
+                      this.customerController.changeAddress(this.currentUser.id, ad);
+                      console.log("Modificar endereço cliente");
+                    }
+
+                    this.currentUser.address_id = a_id;
+                    this.session.remove();
+                    this.session.create(this.currentUser);
+                    this.presentToast("Endereço cadastrado!");
+                    this.navCtrl.setRoot(MeuPerfilPage);
+                  })
+                  .catch(e => console.error(e));
+                }
+                else{
+                  console.log("Endereço não criado no banco ainda");
+                  this.addressController.createAddress(this.endereco)
+                  .then((res:any) => {
+                    if(res.status == "success"){
+
+                      console.log("Endereço criado no banco");
+
+                      this.addressController.getAddressPerAddressCepAndNumber(temp)
+                        .then((res: any) => {
+
+                          console.log("Recebendo id do novo endereço criado");
+
+                          let temp2:any = {"address_id":""};
+                          let a_id2 = res.data[0].id
+                          temp2.address_id = a_id2;
+
+                          console.log("Verificando o tipo do usuário");
+                          if(!!this.currentUser.cpfcnpj){
+
+                            console.log("Se for do tipo vendedor:");
+                            this.sellerController.changeAddress(this.currentUser.id,temp2)
+                              .then((res:any) => {
+                                if(res.status == "success"){
+
+                                  console.log("Modificar endereço vendedor");
+                                  this.currentUser.address_id = a_id2;
+                                  this.session.remove();
+                                  this.session.create(this.currentUser);
+                                  this.presentToast("Endereço cadastrado!");
+                                  this.navCtrl.setRoot(MeuPerfilPage);
+                                }
+                                else{
+                                  console.log("Um erro ocorreu ao tentar modificar o endereço");
+                                }
+                              })
+                          }
+                          else{
+                            console.log("Se for do tipo cliente:");
+                            this.customerController.changeAddress(this.currentUser.id, temp2)
+                              .then((res: any) => {
+                                if (res.status == "success") {
+
+                                  console.log("Modificar endereço cliente");
+                                  this.currentUser.address_id = a_id2;
+                                  this.session.remove();
+                                  this.session.create(this.currentUser);
+                                  this.presentToast("Endereço cadastrado!");
+                                  this.navCtrl.setRoot(MeuPerfilPage);
+                                }
+                                else {
+                                  console.log("Um erro ocorreu ao tentar modificar o endereço");
+                                }
+                              })
+                          }
+                        })
+                        .catch(e => console.error(e));
+                    }
+                    else{
+                      console.log("Um erro ocorreu ao tentar modificar o endereço");
                     }
                   })
-              }
-              else {
-                this.customerController.changeAddress(this.currentUser.id, ad2)
-                  .then((res: any) => {
-                    if (res.status == "success") {
+                }
+              })
+          }
+          else{
+            console.log("Usuario já tem endereço")
+            this.addressController.updateAddress(this.currentUser.id, this.endereco)
+              .then((res: any) => {
+                console.log("Atualizar o endereço já existente do usuário:");
 
-                      this.navCtrl.setRoot(MeuPerfilPage);
-                    }
-                    else {
-                      console.log("error");
-                    }
-                  })
-              }
-              
-              console.log(res);
-              this.navCtrl.setRoot(MeuPerfilPage);
-            })
-            .catch(e => console.error(e));
-        }
-      })
+                let ad2 = {"address_id":""};
+                ad2.address_id = this.endereco.id;
 
+                console.log("Verificar o tipo do usuário:");
+                if (!!this.currentUser.cpfcnpj) {
+
+                  console.log("Usuário vendedor");
+                  this.sellerController.changeAddress(this.currentUser.id, ad2)
+                    .then((res: any) => {
+                      if (res.status == "success") {
+                        this.presentToast("Endereço cadastrado!");
+                        this.navCtrl.setRoot(MeuPerfilPage);
+                      }
+                      else {
+                        console.log("Não foi possível atualizar o endereço");
+                      }
+                    })
+                }
+                else {
+                  console.log("Usuário cliente");
+                  this.customerController.changeAddress(this.currentUser.id, ad2)
+                    .then((res: any) => {
+                      if (res.status == "success") {
+                        this.presentToast("Endereço cadastrado!");
+                        this.navCtrl.setRoot(MeuPerfilPage);
+                      }
+                      else {
+                        console.log("Não foi possível atualizar o endereço");
+                      }
+                    })
+                }
+                
+                console.log(res);
+                this.presentToast("Endereço cadastrado!");
+                this.navCtrl.setRoot(MeuPerfilPage);
+              })
+              .catch(e => console.error(e));
+          }
+        })
+
+     }
+     else{
+       this.presentToast("Preencha todos os campos com *");
+     }
   }
 
   recuperarUser() {
@@ -214,6 +238,129 @@ export class EditarEnderecoPage {
         this.currentUser = res;
         console.log('usuário logado  >>> ', this.currentUser);
       });
+  }
+
+  validationFields():boolean{
+    if(this.endereco.address === "" || this.endereco.address === " " || this.endereco.address === null || this.endereco.address === "undefined" || this.endereco.address.length < 1 || this.endereco.address === "endereco.address"){
+      if(this.endereco.number === "" || this.endereco.number === " " || this.endereco.number === null || this.endereco.number === "undefined" || this.endereco.number.length < 1 || this.endereco.number === "endereco.number"){
+        if(this.endereco.neighborhood === "" || this.endereco.neighborhood === " " || this.endereco.neighborhood === null || this.endereco.neighborhood === "undefined" || this.endereco.neighborhood.length < 1 || this.endereco.neighborhood === "endereco.neighborhood"){
+          if(this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city"){
+            if(this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state"){
+              if(this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep"){
+                return false;
+              }
+              else{
+                return false;
+              }
+            }
+            else{
+              return false;
+            }
+          }
+          else{
+            return false;
+          }
+        }
+        else{
+          return false;
+        }
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      if (this.endereco.number === "" || this.endereco.number === " " || this.endereco.number === null || this.endereco.number === "undefined" || this.endereco.number.length < 1 || this.endereco.number === "endereco.number") {
+        if (this.endereco.neighborhood === "" || this.endereco.neighborhood === " " || this.endereco.neighborhood === null || this.endereco.neighborhood === "undefined" || this.endereco.neighborhood.length < 1 || this.endereco.neighborhood === "endereco.neighborhood") {
+          if (this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city") {
+            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
+              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+                return false;
+              }
+              else{
+                return false;
+              }
+            }
+            else{
+              return false;
+            }
+          }
+          else{
+            return false;
+          }
+        }
+        else{
+          return false;
+        }
+      }
+      else{
+        if (this.endereco.neighborhood === "" || this.endereco.neighborhood === " " || this.endereco.neighborhood === null || this.endereco.neighborhood === "undefined" || this.endereco.neighborhood.length < 1 || this.endereco.neighborhood === "endereco.neighborhood") {
+          if (this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city") {
+            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
+              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+                return false;
+              }
+              else {
+                return false;
+              }
+            }
+            else {
+              return false;
+            }
+          }
+          else {
+            return false;
+          }
+        }
+        else {
+          if (this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city") {
+            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
+              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+                return false;
+              }
+              else {
+                return false;
+              }
+            }
+            else {
+              return false;
+            }
+          }
+          else {
+            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
+              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+                return false;
+              }
+              else {
+                return false;
+              }
+            }
+            else {
+              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+                return false;
+              }
+              else {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }

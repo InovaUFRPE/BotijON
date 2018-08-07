@@ -10,7 +10,7 @@
 <ion-content id="conteudo" padding>
 
   <ion-list *ngFor="let produto of lista_produtos">
-    <ion-item class="item item-block item-md">
+    <ion-item class="item item-block item-md" (click)="clickItem(produto)">
       <p>Descrição: {{produto.description}}</p>
       <p>Valor: {{produto.value}}</p>
       <p>Tipo: {{produto.product_type}}</p>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, DateTime } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, DateTime, ToastController } from 'ionic-angular';
 import { SellersController } from '../../providers/sellers/sellers-controller';
 import { PagamentoPage } from '../pagamento/pagamento';
 import { Session } from '../../providers/users/session';
@@ -28,7 +28,8 @@ export class ProdutoPage {
     public session: Session,
     public storage: Storage,
     private sellerController: SellersController,
-    private requestController: RequestsControllerProvider) {
+    private requestController: RequestsControllerProvider,
+    public toastCtrl: ToastController) {
 
     this.product = this.navParams.get('product');
 
@@ -69,11 +70,27 @@ export class ProdutoPage {
   }
 
   comprarProduto(){
-    this.requestController.createRequest(this.request)
-      .then((res:any) => {
-        this.navCtrl.push(PagamentoPage, { request: this.request });
-      })
-      .catch(e => console.error(e));
+    console.log(this.validationFields())
+    if(this.validationFields()){
+      this.requestController.createRequest(this.request)
+        .then((res:any) => {
+          this.navCtrl.push(PagamentoPage, { request: this.request });
+        })
+        .catch(e => console.error(e));
+    }
+    else{
+      this.presentToast("Digite a quantidade!");
+    }
+  }
+
+  validationFields():boolean{
+    console.log(this.request);
+    if(this.request.quantity == "request.quantity" || this.request.quantity == 0 || this.request.quantity === 0 || this.request.quantity < 1 || this.request.quantity == "undefined" || this.request.quantity == null){
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 
   recuperarUser() {
@@ -83,6 +100,20 @@ export class ProdutoPage {
         this.request.customer_id = res.id;
         console.log('usuário logado  >>> ', this.currentUser);
       });
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 }

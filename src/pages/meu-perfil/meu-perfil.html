@@ -46,6 +46,28 @@
       </ion-col>
     
     </ion-row>
+
+    <ion-row *ngIf="getType()" text-center>
+    
+      <ion-col (click)="toMinhasVendas()">
+        <h4>
+          <ion-icon name="logo-usd"></ion-icon>
+          Minhas Vendas
+        </h4>
+      </ion-col>
+    
+    </ion-row>
+    
+    <ion-row *ngIf="!getType()" text-center>
+
+      <ion-col (click)="toPedidoPage()">
+        <h4>
+          <ion-icon name="ios-add-circle-outline"></ion-icon>
+          Novo Pedido
+        </h4>
+      </ion-col>
+    
+    </ion-row>
     
     <ion-row *ngIf="!getType()" text-center>
 

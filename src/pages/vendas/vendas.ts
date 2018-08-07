@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef  } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { PaymentsControllerProvider } from '../../providers/payments-controller/payments-controller';
+import { AddressesControllerProvider } from '../../providers/addresses-controller/addresses-controller';
 
 @IonicPage()
 @Component({
@@ -14,12 +15,16 @@ export class VendasPage {
   lista_vendas: any = [];
   currentUser: any;
 
+  endereco:any = "Clique aqui para ver";
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private session: Session,
     private storage: Storage,
-    public paymentController: PaymentsControllerProvider) {
+    public paymentController: PaymentsControllerProvider,
+    public addressController: AddressesControllerProvider,
+    private ref: ChangeDetectorRef) {
 
     this.recuperarUser();
   }
@@ -45,6 +50,17 @@ export class VendasPage {
         this.getAllVendas(this.currentUser.id)
         console.log('usuário logado  >>> ', this.currentUser);
       });
+  }
+
+  getAddress(customer_id){
+    this.addressController.getAddressById(customer_id)
+      .then((res: any) => {
+        if(res.status == "success"){
+          this.endereco = res.data[0];
+          this.ref.detectChanges();
+        }
+      })
+      .catch(e => console.error(e));
   }
 
 }

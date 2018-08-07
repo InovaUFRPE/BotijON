@@ -33,7 +33,7 @@ export class MyApp {
   vendas: any = VendasPage;
 
   currentUser:any;
-  typeUser:boolean;
+  typeUser:any;
 
   constructor(
     platform: Platform, 
@@ -44,6 +44,7 @@ export class MyApp {
     public app: App) {
     
     platform.ready().then(() => {
+      
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
@@ -75,6 +76,9 @@ export class MyApp {
           }
         }
         else{
+          this.typeUser = null;
+          this.session.remove();
+          this.storage.clear();
           splashScreen.hide();
           this.rootPage = HomePage;
         }
@@ -82,17 +86,6 @@ export class MyApp {
     }
 
   pushPage(page) {
-/*     if(page == this.novoProduto || page == this.pedidoPage){
-      this.nav.setRoot(page);
-    }
-    else{
-      this.nav.push(page).then(response => {
-        console.log("tipo[true:vendedor|false:cliente]: ",this.typeUser);
-        console.log(response);
-      }).catch(e => {
-        console.log(e);
-      });
-    } */
     this.nav.setRoot(page);
   }
 

@@ -31,6 +31,10 @@ export class PedidoPage {
     console.log('ionViewDidLoad PedidoPage');
   }
 
+  ionViewWillEnter() {
+    this.recuperarUser();
+  }
+
   recuperarUser(){
     this.session.get()
     .then(res => {

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProductsControllerProvider } from '../../providers/products-controller/products-controller';
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
+import { EditarProdutoPage } from '../editar-produto/editar-produto';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,10 @@ import { Storage } from "@ionic/storage";
 })
 export class MeusProdutosPage{
 
+  product: any = {
+    "product_type": "gas",
+    "status": "available"
+  }
   lista_produtos: any = [];
   currentUser: any;
 
@@ -26,6 +31,15 @@ export class MeusProdutosPage{
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MeusProdutosPage');
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter MeusProdutosPage');
+    this.getAllPedidos(this.currentUser.id);
+  }
+
+  clickItem(product) {
+    this.navCtrl.push(EditarProdutoPage, { product: product });
   }
 
   getAllPedidos(id) {
