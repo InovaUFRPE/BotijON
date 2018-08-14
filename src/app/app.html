@@ -5,49 +5,8 @@
         </ion-toolbar>
     </ion-header>
 
-    <ion-content *ngIf="typeUser">
+    <ion-content>
         <ion-list>
-
-            <button (click)="pushPage(novoProduto)" ion-item>
-                <ion-icon name="ios-add-circle-outline"></ion-icon>
-                Novo Produto
-            </button>
-
-            <button (click)="pushPage(vendas)" ion-item >
-                <ion-icon name="logo-usd"></ion-icon> 
-                Vendas
-            </button>
-
-            <button (click)="pushPage(meusProdutosPage)" ion-item >
-                <ion-icon name="md-clipboard"></ion-icon> 
-                Meus Produtos
-            </button>
-
-            <button (click)="pushPage(meusResultados)" ion-item >
-                <ion-icon name="md-stats"></ion-icon> 
-                Meus Resultados
-            </button>
-
-            <button (click)="pushPage(meuPerfil)" ion-item >
-                <ion-icon name="ios-contact"></ion-icon> 
-                Meu Perfil
-            </button>
-
-        </ion-list>
-    </ion-content>
-
-    <ion-content *ngIf="!typeUser">
-        <ion-list>
-
-            <button (click)="pushPage(pedidoPage)" ion-item>
-                <ion-icon name="ios-add-circle-outline"></ion-icon>
-                Novo Pedido
-            </button>
-
-            <button (click)="pushPage(meusPedidos)" ion-item >
-                <ion-icon name="md-cart"></ion-icon> 
-                Meus Pedidos
-            </button>
 
             <button (click)="pushPage(meuPerfil)" ion-item >
                 <ion-icon name="ios-contact"></ion-icon> 

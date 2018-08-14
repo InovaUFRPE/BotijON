@@ -26,6 +26,7 @@ export class PagamentoPage {
   };
 
   address: any = {
+    "id" : "",
     "address": "",
     "number": "",
     "neighborhood": "",
@@ -69,7 +70,6 @@ export class PagamentoPage {
     this.recuperarUser();
 
     this.request = this.navParams.get('request');
-    this.request.quantity = parseInt(this.request.quantity);
     this.getProduct();
     this.getRequest();
     
@@ -77,10 +77,6 @@ export class PagamentoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PagamentoPage');
-  }
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter PagamentoPage');
-    this.getEndereco(this.currentUser.address_id);
   }
 
   getProduct(){
@@ -99,20 +95,20 @@ export class PagamentoPage {
   }
 
   confirmarPagamento(){
-    if (this.currentUser.address_id != 0 || this.currentUser.address_id == "" || this.currentUser.address_id == null || this.currentUser.address_id == "undefined" || this.currentUser.address_id == " "){
-      console.log("CRIAR PAGAMENTO: ",this.payment)
-      this.paymentController.createPayment(this.payment)
-        .then((res:any) => {
-          console.log(res);
-          this.presentToast("Pedido confirmado!");
-          this.navCtrl.setRoot(MeusPedidosPage);
-        })
-        .catch(e => console.error(e));
-    }
-    else{
+    //if (this.currentUser.address_id !== null){
+    console.log("CRIAR PAGAMENTO: ",this.payment)
+    this.paymentController.createPayment(this.payment)
+      .then((res:any) => {
+        console.log(res);
+        this.presentToast("Pedido confirmado!");
+        this.navCtrl.setRoot(MeusPedidosPage);
+      })
+      .catch(e => console.error(e));
+    //}
+/*     else{
       this.presentToast("Primeiro cadastre um endereço!");
       this.navCtrl.push(EditarEnderecoPage);
-    }
+    } */
   }
 
   recuperarUser() {
@@ -128,8 +124,13 @@ export class PagamentoPage {
   getEndereco(id){
     this.addressController.getAddressById(id)
     .then((res:any) => {
-      this.address = res.data[0];
-      this.payment.address_id = this.address.id;
+      if(res.status == "success"){
+        this.address = res.data[0];
+        this.payment.address_id = this.address.id;
+      }
+      else{
+        this.currentUser.address_id = null;
+      }
 
     })
   }
@@ -139,11 +140,21 @@ export class PagamentoPage {
       "customer_id": this.currentUser.id,
       "product_id": this.product.id
     }
+
     this.requestController.getIdOfRequest(temp)
       .then((res: any) => {
-        let new_request:any = res.data[0];
-        let number3 = new_request.id
-        this.payment.request_id = number3;
+        if(res.status == "success"){
+          console.log("RES VEM AQUI: ", res);
+          let new_request: any = res.data[0];
+          console.log("NEW_REQUEST VEM AQUI: ", new_request);
+          let number3 = new_request.id
+          console.log("NUMBER ID VEM AQUI: ", number3);
+          this.payment.request_id = number3;
+          console.log("PAYMENT VEM AQUI: ", this.payment);
+        }
+        else{
+          console.log(res)
+        }
       })
       .catch(e => console.error(e))
   }

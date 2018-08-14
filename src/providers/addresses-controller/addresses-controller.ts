@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AddressesControllerProvider {
   private API_REQRES_URL = 'https://botijon.herokuapp.com/api/';
-  // private API_REQRES_URL = 'http://localhost:3000/api/';
+  //private API_REQRES_URL = 'http://localhost:3000/api/';
 
-  //URL para solicitar geocode do Google Geocoding API
+/*   //URL para solicitar geocode do Google Geocoding API
   private urlServer: any = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
   //Key da Google Geocoding API
-  private apiKey: any = '&key=AIzaSyBk0YX63zQtEpbnI_pniXptaLJY6fSQaps';
+  private apiKey: any = '&key=AIzaSyAwvuTwzNljFlBMH0mHbdRjQeHh3nV-608'; */
 
   constructor(public http: Http) {
     console.log('Hello AddressesControllerProvider Provider');
@@ -65,7 +65,7 @@ export class AddressesControllerProvider {
     });
   }
 
-  //Obter coordenadas
+/*   //Obter coordenadas
   getCoordenates(addressString: any) {
     let urlApi = this.urlServer + addressString + this.apiKey;
     return new Promise((resolve, reject) => {
@@ -83,6 +83,6 @@ export class AddressesControllerProvider {
   stringAddress(addressObject: any) {
     let addressString = addressObject.number + '+' + addressObject.address + '+' + addressObject.neighborhood;
     return addressString;
-  }
+  } */
 
 }

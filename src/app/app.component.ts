@@ -61,16 +61,20 @@ export class MyApp {
 
         if(res != null){
           // Criando usuário
-          this.currentUser = res;
+          let temp = res;
+          this.session.remove();
+          this.storage.clear()
+          this.currentUser = temp;
 
+          this.session.create(this.currentUser);
           //Verifica se usuário é vendedor
           if(!!this.currentUser.cpfcnpj){
-            this.typeUser = true;
+            this.typeUser = "vendedor";
             splashScreen.hide();
             this.rootPage = CadastroProdutoPage;
           }
           else{ //Caso o usuário seja cliente
-            this.typeUser = false;
+            this.typeUser = "cliente";
             splashScreen.hide();
             this.rootPage = PedidoPage;
           }
@@ -87,6 +91,12 @@ export class MyApp {
 
   pushPage(page) {
     this.nav.setRoot(page);
+  }
+
+  verificarTipo():boolean{
+    if(this.typeUser === "vendedor"){
+      return true;
+    }
   }
 
 }

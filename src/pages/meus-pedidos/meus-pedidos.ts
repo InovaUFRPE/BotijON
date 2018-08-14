@@ -31,12 +31,21 @@ export class MeusPedidosPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MeusPedidosPage');
   }
+  ionViewDidEnter(){
+    this.recuperarUser();
+  }
 
   getAllPedidos(id){
     this.paymentController.getAllPaymentsByCustomer(id)
-    .then((res:any) => {
-      this.lista_pedidos = res.data;
-      console.log(this.lista_pedidos);
+      .then((res:any) => {
+        if(res.status == "success"){
+          console.log(res)
+          this.lista_pedidos = res.data;
+          console.log(this.lista_pedidos);
+        }
+        else{
+          console.log(res)
+        }
       })
       .catch((e) => console.error(e));
   }

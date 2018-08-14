@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ProductsControllerProvider {
   private API_REQRES_URL = 'https://botijon.herokuapp.com/api/';
-  // private API_REQRES_URL = 'http://localhost:3000/api/';
+  //private API_REQRES_URL = 'http://localhost:3000/api/';
 
   constructor(public http: Http) {
     console.log('Hello ProductsControllerProvider Provider');

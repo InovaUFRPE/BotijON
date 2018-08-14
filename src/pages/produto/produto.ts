@@ -5,6 +5,7 @@ import { PagamentoPage } from '../pagamento/pagamento';
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { RequestsControllerProvider } from '../../providers/requests-controller/requests-controller';
+import { EditarEnderecoPage } from '../editar-endereco/editar-endereco';
 
 @IonicPage()
 @Component({
@@ -70,16 +71,36 @@ export class ProdutoPage {
   }
 
   comprarProduto(){
-    console.log(this.validationFields())
-    if(this.validationFields()){
-      this.requestController.createRequest(this.request)
-        .then((res:any) => {
-          this.navCtrl.push(PagamentoPage, { request: this.request });
-        })
-        .catch(e => console.error(e));
+    if (this.currentUser.address_id !== null) {
+      if(this.validationFields()){
+        console.log("A REQUEST ESTA AQUI: ", this.request)
+
+        let temp:any = {
+          "customer_id" : "",
+          "product_id" : "",
+          "quantity": ""
+        } 
+        temp.customer_id = this.request.customer_id;
+        temp.product_id = this.request.product_id;
+        temp.quantity = this.request.quantity;
+        this.requestController.createRequest(temp)
+          .then((res:any) => {
+            if(res.status == "success"){
+              this.navCtrl.push(PagamentoPage, { request: temp });
+            }
+            else{
+              console.log(res)
+            }
+          })
+          .catch(e => console.error(e));
+      }
+      else{
+        this.presentToast("Digite a quantidade!");
+      }
     }
-    else{
-      this.presentToast("Digite a quantidade!");
+    else {
+      this.presentToast("Primeiro cadastre um endereço!");
+      this.navCtrl.push(EditarEnderecoPage);
     }
   }
 

@@ -12,6 +12,17 @@ import { AddressesControllerProvider } from '../../providers/addresses-controlle
 })
 export class VendasPage {
 
+  venda:any = {
+    "description" : "Não há vendas registradas",
+    "value" : "",
+    "product_type" : "",
+    "quantity" : "",
+    "date" : "",
+    "payment_type" : "",
+    "address" : "",
+    "number" : "",
+    "neighborhood" : ""
+  }
   lista_vendas: any = [];
   currentUser: any;
 
@@ -37,8 +48,14 @@ export class VendasPage {
     this.paymentController.getAllPaymentsToSeller(id)
       .then((res: any) => {
         console.log(res)
-        this.lista_vendas = res.data;
-        console.log(this.lista_vendas);
+        if(res.status == "success"){
+          this.lista_vendas = res.data;
+          console.log(this.lista_vendas);
+        }
+        else{
+          this.lista_vendas = [this.venda];
+        }
+
       })
       .catch((e) => console.error(e));
   }
@@ -57,7 +74,7 @@ export class VendasPage {
       .then((res: any) => {
         if(res.status == "success"){
           this.endereco = res.data[0];
-          this.ref.detectChanges();
+          console.log(this.endereco);
         }
       })
       .catch(e => console.error(e));

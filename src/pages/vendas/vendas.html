@@ -11,7 +11,7 @@
 
   <ion-list *ngFor="let vendas of lista_vendas">
     <ion-item class="item item-block item-md">
-      <div (click)= "getAddress(vendas.customer_id)">
+      <div (click)="getAddress(vendas.customer_id)">
         <p>Descrição: {{vendas.description}}</p>
         <p>Valor: {{vendas.value}}</p>
         <p>Tipo: {{vendas.product_type}}</p>

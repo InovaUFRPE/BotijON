@@ -4,6 +4,7 @@ import { ProductsControllerProvider } from '../../providers/products-controller/
 import { Session } from '../../providers/users/session';
 import { Storage } from "@ionic/storage";
 import { EditarProdutoPage } from '../editar-produto/editar-produto';
+import { CadastroProdutoPage } from '../cadastro-produto/cadastro-produto';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,9 @@ import { EditarProdutoPage } from '../editar-produto/editar-produto';
 export class MeusProdutosPage{
 
   product: any = {
+    "description": "Sem produtos cadastrados",
+    "value": "",
+    "seller_id": "",
     "product_type": "gas",
     "status": "available"
   }
@@ -46,19 +50,30 @@ export class MeusProdutosPage{
     this.productConttroller.getProductBySeller(id)
       .then((res: any) => {
         console.log(res)
-        this.lista_produtos = res.data;
-        console.log(this.lista_produtos);
+        if(res.status == "success"){
+          this.lista_produtos = res.data;
+          console.log(this.lista_produtos);
+        }
+        else{
+          this.lista_produtos = [this.product];
+        }
+
       })
       .catch((e) => console.error(e));
+      
   }
 
   recuperarUser() {
     this.session.get()
       .then(res => {
         this.currentUser = res;
-        this.getAllPedidos(this.currentUser.id)
+        this.getAllPedidos(this.currentUser.id);
         console.log('usuário logado  >>> ', this.currentUser);
       });
+  }
+
+  toCadastrarProdutos(){
+    this.navCtrl.setRoot(CadastroProdutoPage);
   }
 
 }

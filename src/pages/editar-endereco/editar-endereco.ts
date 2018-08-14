@@ -15,19 +15,15 @@ import { MeuPerfilPage } from '../meu-perfil/meu-perfil';
 export class EditarEnderecoPage {
 
   currentUser:any = {
-    "address_id":''
+    "address_id":null
   };
 
   endereco:any = {
     "address":"",
     "number":"",
     "neighborhood":"",
-    "city":"",
-    "state":"",
     "cep":"",
-    "reference_point":"",
-    "latitude":"",
-    "longitude":""
+    "reference_point":null
   }
 
   constructor(
@@ -42,11 +38,15 @@ export class EditarEnderecoPage {
     ){
     
       this.recuperarUser();
+
       if (this.currentUser.address_id != null){
         this.addressController.getAddressById(this.currentUser.address_id)
           .then((res:any) => {
-            console.log(res.data[0]);
-            this.endereco = res.data[0];
+            if(res.status == "success"){
+              console.log("ENEDERO DO DOIDO AQUI: ", res.data[0]);
+              this.endereco = res.data[0];
+            }
+
           })
           .catch(e => console.error(e));
       }
@@ -56,6 +56,23 @@ export class EditarEnderecoPage {
     console.log('ionViewDidLoad EditarEnderecoPage');
   }
 
+  ionViewDidEnter() {
+    console.log('ionViewDidLoad EditarEnderecoPage');
+    this.recuperarUser();
+    if (this.currentUser.address_id != null) {
+      this.addressController.getAddressById(this.currentUser.address_id)
+        .then((res: any) => {
+          if (res.status == "success") {
+            console.log(res.data[0]);
+            this.endereco = res.data[0];
+          }
+
+        })
+        .catch(e => console.error(e));
+    }
+
+  }
+
   goToBeforePage(){
     this.navCtrl.pop();
   }
@@ -63,14 +80,15 @@ export class EditarEnderecoPage {
   editarEndereco(){
     if(this.validationFields()){
       
-      let addressString = this.addressController.stringAddress(this.endereco);
+/*       let addressString = this.addressController.stringAddress(this.endereco);
 
       this.addressController.getCoordenates(addressString)
         .then((res: any) => {
+          console.log(res)
           let data = res.results[0].geometry.location;
 
           this.endereco.latitude = String(data.lat);
-          this.endereco.longitude = String(data.lng);
+          this.endereco.longitude = String(data.lng); */
 
           console.log("Verificar se usuario tem algum endereço:")
           if (this.currentUser.address_id == null) {
@@ -224,7 +242,7 @@ export class EditarEnderecoPage {
               })
               .catch(e => console.error(e));
           }
-        })
+/*         }) */
 
      }
      else{
@@ -244,18 +262,8 @@ export class EditarEnderecoPage {
     if(this.endereco.address === "" || this.endereco.address === " " || this.endereco.address === null || this.endereco.address === "undefined" || this.endereco.address.length < 1 || this.endereco.address === "endereco.address"){
       if(this.endereco.number === "" || this.endereco.number === " " || this.endereco.number === null || this.endereco.number === "undefined" || this.endereco.number.length < 1 || this.endereco.number === "endereco.number"){
         if(this.endereco.neighborhood === "" || this.endereco.neighborhood === " " || this.endereco.neighborhood === null || this.endereco.neighborhood === "undefined" || this.endereco.neighborhood.length < 1 || this.endereco.neighborhood === "endereco.neighborhood"){
-          if(this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city"){
-            if(this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state"){
-              if(this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep"){
-                return false;
-              }
-              else{
-                return false;
-              }
-            }
-            else{
-              return false;
-            }
+          if(this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep"){
+            return false;
           }
           else{
             return false;
@@ -272,18 +280,8 @@ export class EditarEnderecoPage {
     else{
       if (this.endereco.number === "" || this.endereco.number === " " || this.endereco.number === null || this.endereco.number === "undefined" || this.endereco.number.length < 1 || this.endereco.number === "endereco.number") {
         if (this.endereco.neighborhood === "" || this.endereco.neighborhood === " " || this.endereco.neighborhood === null || this.endereco.neighborhood === "undefined" || this.endereco.neighborhood.length < 1 || this.endereco.neighborhood === "endereco.neighborhood") {
-          if (this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city") {
-            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
-              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
-                return false;
-              }
-              else{
-                return false;
-              }
-            }
-            else{
-              return false;
-            }
+          if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+            return false;
           }
           else{
             return false;
@@ -292,57 +290,23 @@ export class EditarEnderecoPage {
         else{
           return false;
         }
+
       }
       else{
         if (this.endereco.neighborhood === "" || this.endereco.neighborhood === " " || this.endereco.neighborhood === null || this.endereco.neighborhood === "undefined" || this.endereco.neighborhood.length < 1 || this.endereco.neighborhood === "endereco.neighborhood") {
-          if (this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city") {
-            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
-              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
-                return false;
-              }
-              else {
-                return false;
-              }
-            }
-            else {
-              return false;
-            }
+          if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+            return false;
           }
           else {
             return false;
           }
         }
         else {
-          if (this.endereco.city === "" || this.endereco.city === " " || this.endereco.city === null || this.endereco.city === "undefined" || this.endereco.city.length < 1 || this.endereco.city === "endereco.city") {
-            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
-              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
-                return false;
-              }
-              else {
-                return false;
-              }
-            }
-            else {
-              return false;
-            }
+          if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
+            return false;
           }
           else {
-            if (this.endereco.state === "" || this.endereco.state === " " || this.endereco.state === null || this.endereco.state === "undefined" || this.endereco.state.length < 1 || this.endereco.state === "endereco.state") {
-              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
-                return false;
-              }
-              else {
-                return false;
-              }
-            }
-            else {
-              if (this.endereco.cep === "" || this.endereco.cep === " " || this.endereco.cep === null || this.endereco.cep === "undefined" || this.endereco.cep.length < 1 || this.endereco.cep === "endereco.cep") {
-                return false;
-              }
-              else {
-                return true;
-              }
-            }
+            return true;
           }
         }
       }
