@@ -61,6 +61,19 @@ export class PaymentsControllerProvider {
     });
   }
 
+  getValueTotalToPaymentsSeller(seller_id: number) {
+    return new Promise((resolve, reject) => {
+      let url = this.API_REQRES_URL + 'payments/valuetotal/' + seller_id;
+      this.http.get(url)
+        .subscribe((result: any) => {
+          resolve(result.json())
+        },
+          (error) => {
+            reject(error.json())
+          });
+    });
+  }
+
   getPaymentsPerTypeAndStatus(payment: any) {
     return new Promise((resolve, reject) => {
       let url = this.API_REQRES_URL + 'payments/typestatus/' + JSON.stringify(payment);

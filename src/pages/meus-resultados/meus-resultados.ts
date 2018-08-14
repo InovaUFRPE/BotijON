@@ -23,7 +23,6 @@ export class MeusResultadosPage {
     public paymentController: PaymentsControllerProvider) {
 
     this.recuperarUser();
-    this.valorTotal()
   }
 
   ionViewDidLoad() {
@@ -40,17 +39,21 @@ export class MeusResultadosPage {
       .catch((e) => console.error(e));
   }
 
-  valorTotal(){
-    this.lista_vendas.forEach(element => {
-      let val = element.value * element.quantity;
-      this.valor += val
-    });
+  valorTotal(user_id){
+    this.paymentController.getValueTotalToPaymentsSeller(user_id)
+    .then((res:any) => {
+      console.log("primeiro print aqui: ",res.data[0]);
+      this.valor = res.data[0].value_total;
+      console.log("segundo print aqui: ",this.valor);
+    })
+    .catch(e => console.error(e));
   }
 
   recuperarUser() {
     this.session.get()
       .then(res => {
         this.currentUser = res;
+        this.valorTotal(this.currentUser.id)
         this.getAllVendas(this.currentUser.id)
         console.log('usuário logado  >>> ', this.currentUser);
       });
