@@ -70,6 +70,7 @@ export class PagamentoPage {
     this.recuperarUser();
 
     this.request = this.navParams.get('request');
+    console.log("REQUEST AQUI MANIM!: ",this.request);
     this.getProduct();
     this.getRequest();
     
@@ -137,8 +138,8 @@ export class PagamentoPage {
 
   getRequest(){
     let temp = {
-      "customer_id": this.currentUser.id,
-      "product_id": this.product.id
+      "customer_id": this.request.customer_id,
+      "product_id": this.request.product_id
     }
 
     this.requestController.getIdOfRequest(temp)

@@ -26,7 +26,7 @@ export class VendasPage {
   lista_vendas: any = [];
   currentUser: any;
 
-  endereco:any = "Clique aqui para ver";
+  endereco:any = {"id":null};
 
   constructor(
     public navCtrl: NavController,
@@ -36,7 +36,7 @@ export class VendasPage {
     public paymentController: PaymentsControllerProvider,
     public addressController: AddressesControllerProvider,
     private ref: ChangeDetectorRef) {
-
+    
     this.recuperarUser();
   }
 
@@ -44,8 +44,8 @@ export class VendasPage {
     console.log('ionViewDidLoad VendasPage');
   }
 
-  getAllVendas(id) {
-    this.paymentController.getAllPaymentsToSeller(id)
+  getAllVendas(seller_id) {
+    this.paymentController.getAllPaymentsToSeller(seller_id)
       .then((res: any) => {
         console.log(res)
         if(res.status == "success"){
@@ -65,19 +65,9 @@ export class VendasPage {
       .then(res => {
         this.currentUser = res;
         this.getAllVendas(this.currentUser.id)
+        console.log("AQUI TA A VENDA DAJVFVBJKVEVR: ", this.lista_vendas) 
         console.log('usuário logado  >>> ', this.currentUser);
       });
-  }
-
-  getAddress(customer_id){
-    this.addressController.getAddressById(customer_id)
-      .then((res: any) => {
-        if(res.status == "success"){
-          this.endereco = res.data[0];
-          console.log(this.endereco);
-        }
-      })
-      .catch(e => console.error(e));
   }
 
 }

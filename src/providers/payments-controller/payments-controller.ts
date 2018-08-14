@@ -48,9 +48,9 @@ export class PaymentsControllerProvider {
     });
   }
 
-  getAllPaymentsToSeller(id: number) {
+  getAllPaymentsToSeller(seller_id: number) {
     return new Promise((resolve, reject) => {
-      let url = this.API_REQRES_URL + 'payments/toseller/' + id;
+      let url = this.API_REQRES_URL + 'payments/toseller/' + seller_id;
       this.http.get(url)
         .subscribe((result: any) => {
           resolve(result.json())

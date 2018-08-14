@@ -11,19 +11,19 @@
 
   <ion-list *ngFor="let vendas of lista_vendas">
     <ion-item class="item item-block item-md">
-      <div (click)="getAddress(vendas.customer_id)">
-        <p>Descrição: {{vendas.description}}</p>
-        <p>Valor: {{vendas.value}}</p>
-        <p>Tipo: {{vendas.product_type}}</p>
-        <p>Quantidade: {{vendas.quantity}}</p>
-        <p>Data: {{vendas.date | date: 'dd/MM/yyyy'}}</p>
-        <p>Tipo pagamento: {{vendas.payment_type}}</p>
-        <hr>
-        <p id="obs"><em>Clique para ver o endereço de entrega</em></p>
-        <p>Endereço: {{this.endereco.address}}</p>
-        <p>Número: {{this.endereco.number}}</p>
-        <p>Bairro: {{this.endereco.neighborhood}}</p>
-      </div>
+      <!-- <div (click)="getAddress(vendas.customer_id)"> -->
+      <p>Descrição: {{vendas.description}}</p>
+      <p>Valor: {{vendas.value}}</p>
+      <p>Tipo: {{vendas.product_type}}</p>
+      <p>Quantidade: {{vendas.quantity}}</p>
+      <p>Data: {{vendas.date | date: 'dd/MM/yyyy'}}</p>
+      <p>Tipo pagamento: {{vendas.payment_type}}</p>
+      <hr>
+      <!-- <p id="obs"><em>Clique para ver o endereço de entrega</em></p> -->
+      <p>Endereço: {{this.vendas.address}}</p>
+      <p>Número: {{this.vendas.number}}</p>
+      <p>Bairro: {{this.vendas.neighborhood}}</p>
+      <!-- </div> -->
     </ion-item>
   </ion-list>
 
